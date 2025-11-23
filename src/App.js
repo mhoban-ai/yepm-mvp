@@ -1966,7 +1966,7 @@ const App = () => {
     setGenerating(true);
     
     try {
-      const response = await fetch('https://yepm-mvp-production.up.railway.app/api/generate', {
+      const response = await fetch('/api/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -2077,7 +2077,7 @@ Generate 15-25 tasks with proper hierarchy.`
   };
 
   const handleAskAI = async (question, projectData, tasks) => {
-    const response = await fetch('https://yepm-mvp-production.up.railway.app/api/generate', {
+    const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
