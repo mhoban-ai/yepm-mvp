@@ -4,7 +4,10 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://yepm-mvp.vercel.app', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 app.post('/api/generate', async (req, res) => {
