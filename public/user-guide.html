@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YEPM Project Planning - User Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9fafb;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .nav h3 {
+            margin-bottom: 1rem;
+            color: #15803d;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .nav a {
+            color: #15803d;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav a:hover {
+            background: #f0fdf4;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #15803d;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #15803d;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #16a34a;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .section h4 {
+            color: #22c55e;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .screenshot {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .screenshot-placeholder {
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+
+        .tip {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .tip strong {
+            color: #059669;
+        }
+
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .warning strong {
+            color: #d97706;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #f9fafb;
+            border-radius: 6px;
+            position: relative;
+            padding-left: 3.5rem;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            background: #15803d;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .feature-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+
+        .feature-card h4 {
+            color: #15803d;
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #ef4444;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        table th,
+        table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #15803d;
+        }
+
+        table tr:hover {
+            background: #f9fafb;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #15803d;
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+
+        .back-to-top:hover {
+            background: #166534;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 YEPM Project Planning System</h1>
+        <p>Complete User Guide - AI-Powered Project Management</p>
+    </div>
+
+    <div class="container">
+        <!-- Quick Navigation -->
+        <div class="nav">
+            <h3>📚 Quick Navigation</h3>
+            <ul>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#create-project">Create a Project</a></li>
+                <li><a href="#ai-generation">AI Plan Generation</a></li>
+                <li><a href="#navigation">Interface Navigation</a></li>
+                <li><a href="#editing">Editing Tasks</a></li>
+                <li><a href="#hierarchy">Task Hierarchy</a></li>
+                <li><a href="#dependencies">Dependencies</a></li>
+                <li><a href="#workload">Workload View</a></li>
+                <li><a href="#ask-jake">Ask Jake AI</a></li>
+                <li><a href="#tips">Tips & Tricks</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </div>
+
+        <!-- Getting Started -->
+        <div id="getting-started" class="section">
+            <h2>🚀 Getting Started</h2>
+            
+            <h3>What is YEPM Project Planning?</h3>
+            <p>YEPM Project Planning is an AI-powered project management tool that helps you create, manage, and track project plans from start to finish. Whether you're managing a small renovation or a complex enterprise project, our system adapts to your needs.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🤖 AI-Powered</h4>
+                    <p>Generate comprehensive project plans instantly using Claude AI</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Visual Management</h4>
+                    <p>Track tasks with Gantt and hierarchy views</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔗 Smart Dependencies</h4>
+                    <p>Automatic date cascading when tasks change</p>
+                </div>
+                <div class="feature-card">
+                    <h4>👥 Team Collaboration</h4>
+                    <p>Assign tasks and track team workload</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> The more detailed information you provide when creating a project, the better and more accurate your AI-generated plan will be!
+            </div>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Dashboard Overview
+                <br><small>Add a screenshot of the main dashboard here</small>
+            </div>
+        </div>
+
+        <!-- Create Project -->
+        <div id="create-project" class="section">
+            <h2>📝 Creating a New Project</h2>
+
+            <h3>Step-by-Step Guide</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Project Name</strong> - Enter a clear, descriptive name for your project
+                    <div class="screenshot-placeholder">
+                        📸 Screenshot: Project name field
+                    </div>
+                </li>
+                <li>
+                    <strong>Project Type</strong> - Select from Construction, Software Development, Event Planning, Marketing Campaign, Product Launch, Landscaping, Renovation, or Custom
+                    <div class="tip">
+                        <strong>💡 Tip:</strong> The project type determines the AI template used for generating your plan
+                    </div>
+                </li>
+                <li>
+                    <strong>Complexity Level</strong> - Choose Simple, Medium, or Complex
+                    <ul>
+                        <li><strong>Simple:</strong> 1-2 months, basic structure</li>
+                        <li><strong>Medium:</strong> 3-6 months, moderate detail</li>
+                        <li><strong>Complex:</strong> 6+ months, comprehensive breakdown</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Team Members</strong> - Enter worker names separated by commas
+                    <br>Example: <code>John Smith, Mary Johnson, Bob Williams</code>
+                </li>
+                <li>
+                    <strong>Project Dates</strong> - Set realistic start and end dates
+                    <div class="warning">
+                        <strong>⚠️ Important:</strong> All tasks must fit within these dates. Choose a reasonable timeline for your project scope.
+                    </div>
+                </li>
+                <li>
+                    <strong>Key Deliverables</strong> - List 3-5 major outcomes
+                    <br>Example: "Completed foundation, Installed utilities, Final inspection approval"
+                </li>
+                <li>
+                    <strong>Description & Constraints</strong> - Add any special requirements, regulations, or seasonal factors
+                </li>
+            </ol>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Complete project creation form
+            </div>
+
+            <h3>Required Fields</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Required</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Project Name</td>
+                        <td>✅ Yes</td>
+                        <td>Identifies your project</td>
+                    </tr>
+                    <tr>
+                        <td>Project Type</td>
+                        <td>✅ Yes</td>
+                        <td>Selects AI template</td>
+                    </tr>
+                    <tr>
+                        <td>Start Date</td>
+                        <td>✅ Yes</td>
+                        <td>Sets project timeline</td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td>✅ Yes</td>
+                        <td>Defines deadline</td>
+                    </tr>
+                    <tr>
+                        <td>Deliverables</td>
+                        <td>✅ Yes</td>
+                        <td>AI plan structure</td>
+                    </tr>
+                    <tr>
+                        <td>Approver Email</td>
+                        <td>❌ No</td>
+                        <td>Optional stakeholder</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- AI Generation -->
+        <div id="ai-generation" class="section">
+            <h2>🤖 AI Plan Generation</h2>
+
+            <h3>How It Works</h3>
+            <p>When you click "Generate Project Plan", our AI analyzes your inputs and creates a comprehensive Work Breakdown Structure (WBS) with tasks, durations, and dependencies.</p>
+
+            <ol class="step-list">
+                <li>Click the <strong>"Generate Project Plan"</strong> button</li>
+                <li>Wait 10-20 seconds while AI creates your plan</li>
+                <li>Review the generated plan structure</li>
+                <li>Edit and customize as needed</li>
+            </ol>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Generate button and loading state
+            </div>
+
+            <h3>What Gets Generated</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📋 WBS Structure</h4>
+                    <p>Hierarchical task numbering (1.0, 1.1, 1.1.1)</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⏱️ Durations</h4>
+                    <p>Realistic time estimates for each task</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📅 Dates</h4>
+                    <p>Start and end dates for all tasks</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔗 Dependencies</h4>
+                    <p>Logical task relationships</p>
+                </div>
+                <div class="feature-card">
+                    <h4>👤 Assignments</h4>
+                    <p>Team members assigned to tasks</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Phases</h4>
+                    <p>Major project milestones</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> The AI generates 15-25 tasks based on your project complexity. You can always add more or remove tasks after generation.
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div id="navigation" class="section">
+            <h2>🧭 Interface Navigation</h2>
+
+            <h3>The Hamburger Menu (≡)</h3>
+            <p>Click the menu icon in the top-right corner to access all project tools:</p>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Hamburger menu closed and open
+            </div>
+
+            <h4>View Options</h4>
+            <ul>
+                <li><strong>📋 Project Plan</strong> - Main task management view</li>
+                <li><strong>📅 Workload</strong> - Team calendar and resource allocation</li>
+            </ul>
+
+            <h4>Display Style (when in Project Plan)</h4>
+            <ul>
+                <li><strong>📊 Gantt View</strong> - Timeline-based task view (default)</li>
+                <li><strong>📈 Hierarchy View</strong> - Outline-style task list</li>
+            </ul>
+
+            <h4>Tools</h4>
+            <ul>
+                <li><strong>🔔 Suggestions</strong> - AI-detected issues and recommendations (shows badge count)</li>
+                <li><strong>⚙️ Project Settings</strong> - Edit project details, dates, team members</li>
+                <li><strong>💬 Ask Jake!</strong> - AI assistant for project questions</li>
+            </ul>
+
+            <h3>Header Information</h3>
+            <p>The green header always shows:</p>
+            <ul>
+                <li>Project name</li>
+                <li>Project date range</li>
+                <li>Save status ("All changes saved ✓")</li>
+                <li>Hamburger menu with notification badge</li>
+            </ul>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Header with all elements labeled
+            </div>
+        </div>
+
+        <!-- Editing -->
+        <div id="editing" class="section">
+            <h2>✏️ Editing Tasks</h2>
+
+            <h3>Inline Editing</h3>
+            <p>Click directly on any field to edit it:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>How to Edit</th>
+                        <th>Validation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Task Name</td>
+                        <td>Click on name, type, press Enter</td>
+                        <td>Cannot be blank</td>
+                    </tr>
+                    <tr>
+                        <td>Start Date</td>
+                        <td>Click date, use date picker</td>
+                        <td>Must be before end date and within project dates</td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td>Click date, use date picker</td>
+                        <td>Must be after start date and within project dates</td>
+                    </tr>
+                    <tr>
+                        <td>Assigned To</td>
+                        <td>Click names, enter comma-separated list</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Inline editing in action
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> Fields highlight in yellow on hover to show they're editable. Press Escape to cancel editing.
+            </div>
+
+            <h3>Task Actions</h3>
+            <p>Each task row has action icons on the right:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Action</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💬</td>
+                        <td>Notes</td>
+                        <td>Add/edit task notes and comments</td>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>Add Subtask</td>
+                        <td>Create a child task under this task</td>
+                    </tr>
+                    <tr>
+                        <td>✏️</td>
+                        <td>Edit</td>
+                        <td>Quick edit task name</td>
+                    </tr>
+                    <tr>
+                        <td>🗑️</td>
+                        <td>Delete</td>
+                        <td>Remove task (with confirmation)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Action icons on task row
+            </div>
+
+            <h3>Adding Tasks</h3>
+            <ol class="step-list">
+                <li>Click the green <strong>+</strong> icon in the header to add a top-level task</li>
+                <li>Or click the small <strong>+</strong> icon on any task row to add a subtask</li>
+                <li>Fill in the task details in the modal</li>
+                <li>Click "Add Task" to confirm</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ Note:</strong> WBS numbers are automatically calculated. New tasks get the next available number.
+            </div>
+        </div>
+
+        <!-- Hierarchy -->
+        <div id="hierarchy" class="section">
+            <h2>🌳 Task Hierarchy Management</h2>
+
+            <h3>Understanding WBS (Work Breakdown Structure)</h3>
+            <p>Tasks are organized hierarchically using WBS numbers:</p>
+            <ul>
+                <li><code>1.0</code> - Top-level task (phase)</li>
+                <li><code>1.1</code> - Subtask under 1.0</li>
+                <li><code>1.1.1</code> - Sub-subtask under 1.1</li>
+                <li><code>1.1.1.1</code> - Deepest level (4 levels max)</li>
+            </ul>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Task hierarchy with different levels
+            </div>
+
+            <h3>Expand/Collapse Tasks</h3>
+            <ul>
+                <li>Click <strong>▶</strong> arrow next to task to expand and show subtasks</li>
+                <li>Click <strong>▼</strong> arrow to collapse subtasks</li>
+                <li>Use <strong>▼</strong> button in header to expand all tasks at once</li>
+                <li>Use <strong>▶</strong> button in header to collapse all tasks</li>
+            </ul>
+
+            <h3>Promote/Demote Tasks</h3>
+            <p>Change task hierarchy levels using the colored circle icons on the left:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Action</th>
+                        <th>Effect</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🟢 ◀</td>
+                        <td>Promote</td>
+                        <td>Move task left (up one level in hierarchy)</td>
+                    </tr>
+                    <tr>
+                        <td>🔵 ▶</td>
+                        <td>Demote</td>
+                        <td>Move task right (down one level, becomes subtask)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Promote/Demote icons with arrows
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> Icons are grayed out when you've reached the maximum depth or can't move further. Task 1.0 cannot be promoted or demoted.
+            </div>
+
+            <h3>Drag and Drop Reordering</h3>
+            <p>Reorder tasks at the same level by dragging:</p>
+            <ol class="step-list">
+                <li>Click and hold on a task (except task 1.0)</li>
+                <li>Drag to the desired position</li>
+                <li>Green line shows where it will drop</li>
+                <li>Release to complete the reorder</li>
+                <li>WBS numbers update automatically</li>
+            </ol>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> You can only reorder tasks within the same level. To move a task to a different level, use Promote/Demote.
+            </div>
+        </div>
+
+        <!-- Dependencies -->
+        <div id="dependencies" class="section">
+            <h2>🔗 Managing Dependencies</h2>
+
+            <h3>What Are Dependencies?</h3>
+            <p>Dependencies link tasks together so they happen in the correct order. For example: "Site Prep" can't start until "Permit Approval" finishes.</p>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Dependencies modal
+            </div>
+
+            <h3>Adding Dependencies</h3>
+            <ol class="step-list">
+                <li>Click <strong>"+ Add"</strong> or the dependency count in the Dependencies column</li>
+                <li>Click <strong>"Add Dependency"</strong> button at the bottom</li>
+                <li>Select which task must finish first (predecessor)</li>
+                <li>Set dependency type (Finish-to-Start is most common)</li>
+                <li>Add lag time if needed (e.g., 7 days for concrete curing)</li>
+                <li>Click <strong>"Save Dependencies"</strong></li>
+            </ol>
+
+            <h3>Dependency Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Finish-to-Start</td>
+                        <td>FS</td>
+                        <td>This task starts after predecessor finishes</td>
+                        <td>Foundation → Framing</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Lag Time</h3>
+            <p>Lag time adds a delay between tasks:</p>
+            <ul>
+                <li><strong>0 days:</strong> Start immediately when predecessor finishes</li>
+                <li><strong>7 days:</strong> Wait 7 days after predecessor finishes</li>
+                <li><strong>Use case:</strong> Concrete curing, paint drying, approval processes</li>
+            </ul>
+
+            <h3>Automatic Date Cascading</h3>
+            <div class="tip">
+                <strong>💡 Magic Feature:</strong> When you change a task's dates, all dependent tasks automatically adjust! This is the power of dependencies.
+            </div>
+
+            <p><strong>Example:</strong></p>
+            <ol>
+                <li>Task A ends on Jan 10</li>
+                <li>Task B depends on Task A (FS, 2 days lag)</li>
+                <li>Task B automatically starts on Jan 12</li>
+                <li>If you move Task A to end on Jan 15, Task B automatically moves to Jan 17!</li>
+            </ol>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Before and after dependency cascade
+            </div>
+        </div>
+
+        <!-- Workload -->
+        <div id="workload" class="section">
+            <h2>📅 Workload View</h2>
+
+            <h3>What Is It?</h3>
+            <p>The Workload View shows you who's working on what and when. It's a calendar-style view that helps identify overloaded team members.</p>
+
+            <ol class="step-list">
+                <li>Open hamburger menu (≡)</li>
+                <li>Click <strong>"📅 Workload View"</strong></li>
+                <li>See team member schedule for the first 14 days</li>
+            </ol>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Workload calendar view
+            </div>
+
+            <h3>Color Coding</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Tasks</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>⬜ White</td>
+                        <td>0</td>
+                        <td>No tasks scheduled</td>
+                    </tr>
+                    <tr>
+                        <td>🟢 Green</td>
+                        <td>1</td>
+                        <td>Good workload</td>
+                    </tr>
+                    <tr>
+                        <td>🟡 Yellow</td>
+                        <td>2</td>
+                        <td>Moderate workload</td>
+                    </tr>
+                    <tr>
+                        <td>🔴 Red</td>
+                        <td>3+</td>
+                        <td>Overloaded - consider redistributing</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Using Workload View</h3>
+            <ul>
+                <li><strong>Hover</strong> over any cell to see which tasks are assigned</li>
+                <li><strong>Identify bottlenecks:</strong> Red cells indicate too many simultaneous tasks</li>
+                <li><strong>Balance workload:</strong> Reassign tasks or adjust dates to distribute work evenly</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Check Workload View before finalizing your plan to ensure no team member is overloaded.
+            </div>
+        </div>
+
+        <!-- Ask Jake -->
+        <div id="ask-jake" class="section">
+            <h2>💬 Ask Jake! - Your AI Assistant</h2>
+
+            <h3>What Can Jake Do?</h3>
+            <p>Jake is your AI project assistant powered by Claude. He can help you:</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🔍 Find Issues</h4>
+                    <p>Identify missing dependencies or overallocated resources</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💡 Optimize Plans</h4>
+                    <p>Suggest ways to shorten timelines or improve efficiency</p>
+                </div>
+                <div class="feature-card">
+                    <h4>❓ Answer Questions</h4>
+                    <p>Explain project management concepts or best practices</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Analyze Projects</h4>
+                    <p>Provide insights about your project structure</p>
+                </div>
+            </div>
+
+            <h3>How to Use</h3>
+            <ol class="step-list">
+                <li>Click hamburger menu (≡)</li>
+                <li>Select <strong>"💬 Ask Jake!"</strong></li>
+                <li>Chat panel appears in bottom-right</li>
+                <li>Type your question</li>
+                <li>Click Send or press Enter</li>
+                <li>Jake responds with helpful insights</li>
+            </ol>
+
+            <div class="screenshot-placeholder">
+                📸 Screenshot: Ask Jake chat panel
+            </div>
+
+            <h3>Example Questions</h3>
+            <ul>
+                <li>"What's the critical path of my project?"</li>
+                <li>"Are there any resource conflicts?"</li>
+                <li>"How can I shorten the timeline?"</li>
+                <li>"Which tasks have no dependencies?"</li>
+                <li>"Is anyone overloaded this week?"</li>
+                <li>"Add compliance tasks for California building codes"</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Jake has full context of your project, so be specific! Ask about particular tasks, dates, or team members.
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div id="tips" class="section">
+            <h2>💡 Tips & Tricks</h2>
+
+            <h3>Best Practices</h3>
+            
+            <h4>1. Project Setup</h4>
+            <ul>
+                <li>✅ Provide detailed deliverables for better AI generation</li>
+                <li>✅ Set realistic date ranges with buffer time</li>
+                <li>✅ List all team members upfront for proper assignment</li>
+                <li>✅ Include constraints (regulations, weather, etc.)</li>
+            </ul>
+
+            <h4>2. Task Management</h4>
+            <ul>
+                <li>✅ Use clear, descriptive task names</li>
+                <li>✅ Break large tasks into smaller subtasks (easier to track)</li>
+                <li>✅ Assign realistic durations (add buffer for unknowns)</li>
+                <li>✅ Add dependencies to maintain logical flow</li>
+            </ul>
+
+            <h4>3. Team Coordination</h4>
+            <ul>
+                <li>✅ Check Workload View regularly</li>
+                <li>✅ Balance task assignments across team</li>
+                <li>✅ Use task notes for important decisions or blockers</li>
+                <li>✅ Update task status to track progress</li>
+            </ul>
+
+            <h4>4. Ongoing Maintenance</h4>
+            <ul>
+                <li>✅ Review Smart Suggestions weekly</li>
+                <li>✅ Update actual dates as work progresses</li>
+                <li>✅ Ask Jake for optimization ideas</li>
+                <li>✅ Document blockers in task notes</li>
+            </ul>
+
+            <h3>Keyboard Shortcuts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Shortcut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Save inline edit</td>
+                        <td>Enter</td>
+                    </tr>
+                    <tr>
+                        <td>Cancel inline edit</td>
+                        <td>Escape</td>
+                    </tr>
+                    <tr>
+                        <td>Close modal</td>
+                        <td>Escape or click backdrop</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Common Workflows</h3>
+
+            <h4>Weekly Project Update</h4>
+            <ol class="step-list">
+                <li>Check Smart Suggestions for new issues</li>
+                <li>Update completed task dates</li>
+                <li>Review Workload View for next week</li>
+                <li>Reassign overloaded resources</li>
+                <li>Ask Jake: "Any risks for next week?"</li>
+            </ol>
+
+            <h4>Handling Delays</h4>
+            <ol class="step-list">
+                <li>Update the delayed task's end date</li>
+                <li>Dependencies automatically cascade forward</li>
+                <li>Check impact on project end date</li>
+                <li>Ask Jake: "How can I recover this time?"</li>
+                <li>Adjust plan based on recommendations</li>
+            </ol>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div id="troubleshooting" class="section">
+            <h2>🔧 Troubleshooting</h2>
+
+            <h3>Common Issues</h3>
+
+            <h4>Problem: Task dates won't change</h4>
+            <p><strong>Solution:</strong></p>
+            <ul>
+                <li>Check if task has dependencies - dependent tasks can't be moved freely</li>
+                <li>Verify date is within project start/end range</li>
+                <li>Ensure start date is before end date</li>
+            </ul>
+
+            <h4>Problem: Can't add subtask</h4>
+            <p><strong>Solution:</strong></p>
+            <ul>
+                <li>Check if you've reached maximum depth (4 levels)</li>
+                <li>Verify parent task is expanded</li>
+                <li>Try clicking the + icon directly on the task row</li>
+            </ul>
+
+            <h4>Problem: Dependencies not cascading</h4>
+            <p><strong>Solution:</strong></p>
+            <ul>
+                <li>Verify dependency is saved (check Dependencies column)</li>
+                <li>Ensure dependency type is Finish-to-Start</li>
+                <li>Check that predecessor task dates are set</li>
+                <li>Refresh the page if needed</li>
+            </ul>
+
+            <h4>Problem: AI generation failed</h4>
+            <p><strong>Solution:</strong></p>
+            <ul>
+                <li>Verify all required fields are filled</li>
+                <li>Check that start date is before end date</li>
+                <li>Ensure deliverables field is not empty</li>
+                <li>Try again - sometimes API can have temporary issues</li>
+            </ul>
+
+            <h4>Problem: Team members not showing in Workload</h4>
+            <p><strong>Solution:</strong></p>
+            <ul>
+                <li>Open Project Settings (hamburger menu → Project Settings)</li>
+                <li>Verify team members are listed</li>
+                <li>Check that tasks are assigned to exact names (spelling matters)</li>
+            </ul>
+
+            <h4>Problem: Changes not saving</h4>
+            <p><strong>Solution:</strong></p>
+            <ul>
+                <li>Check header for "All changes saved ✓" message</li>
+                <li>Ensure you have internet connection</li>
+                <li>Press Enter to complete inline edits</li>
+                <li>Refresh page to verify persistence</li>
+            </ul>
+
+            <h3>Browser Compatibility</h3>
+            <p>YEPM works best on:</p>
+            <ul>
+                <li>✅ Chrome 90+</li>
+                <li>✅ Firefox 88+</li>
+                <li>✅ Safari 14+</li>
+                <li>✅ Edge 90+</li>
+            </ul>
+
+            <h3>Need More Help?</h3>
+            <div class="tip">
+                <strong>💡 Try Ask Jake!</strong> Open the AI assistant and describe your problem. Jake can often help troubleshoot specific issues with your project.
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; background: #f9fafb;">
+            <h3 style="color: #15803d; margin-bottom: 1rem;">Ready to Get Started?</h3>
+            <p>Close this guide and start creating your first project!</p>
+            <p style="margin-top: 2rem; color: #6b7280; font-size: 0.9rem;">
+                YEPM Project Planning System - Powered by AI<br>
+                Version 1.0 - November 2025
+            </p>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top">↑</a>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

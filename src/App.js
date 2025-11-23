@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, ChevronDown, ChevronRight, ChevronLeft, Plus, Trash2, Edit2, Save, X, MessageSquare, Loader2, LayoutGrid, List, AlertCircle, Menu } from 'lucide-react';
+import { Calendar, ChevronDown, ChevronRight, ChevronLeft, Plus, Trash2, Edit2, Save, X, MessageSquare, Loader2, LayoutGrid, List, AlertCircle, Menu, HelpCircle } from 'lucide-react';
 
 // Storage Manager
 const StorageManager = {
@@ -1057,6 +1057,16 @@ const ProjectPlanView = ({ projectData, tasks, onTaskUpdate, onAskAI }) => {
                 <button onClick={() => { setShowChat(!showChat); setShowMenuDropdown(false); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition">
                   <MessageSquare size={18} />
                   <span>Ask Jake!</span>
+                </button>
+                <button 
+                  onClick={() => { 
+                    window.open('/user-guide.html', '_blank'); 
+                    setShowMenuDropdown(false); 
+                  }} 
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition"
+                >
+                  <HelpCircle size={18} />
+                  <span>User Guide</span>
                 </button>
               </div>
               <div className="p-3 bg-gray-50 text-xs text-gray-500 text-center">All project tools in one place</div>
